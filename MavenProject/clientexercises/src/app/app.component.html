@@ -1,0 +1,12 @@
+<mat-toolbar color="primary">
+<span>INFO5059 - {{ title }}</span>
+<span style="flex: 1 1 auto;"></span>
+<button mat-button [matMenuTriggerFor]="appMenu" align="end">
+<mat-icon>menu</mat-icon>
+</button>
+</mat-toolbar>
+<mat-menu #appMenu="matMenu">
+<a mat-menu-item [routerLink]="['home']" (click)="setTitle('home')">Home</a>
+<a mat-menu-item [routerLink]="['employees']" (click)="setTitle('employees')">employees</a>
+</mat-menu>
+<router-outlet></router-outlet>
