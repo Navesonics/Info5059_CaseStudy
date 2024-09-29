@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+<span>INFO5059 - {{ title }}</span>
+  <span style="flex: 1 1 auto;"></span>
+  <button mat-button [matMenuTriggerFor]="appMenu" align="end">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-menu #appMenu="matMenu" xPosition="after">
+  <a mat-menu-item [routerLink]="['home']" (click)="setTitle('Home')">Home</a>
+  <a mat-menu-item [routerLink]="['vendors']" (click)="setTitle('Vendor')">Vendor</a>
+</mat-menu>
+
+<mat-card>
+  <mat-card-header style="display: flex; justify-content: center; align-items: center;">
+    <img src="assets/Logo_CaseStudy.jpg" alt="App Logo1" style="height: 80px;">
+  </mat-card-header>
+</mat-card>
+<router-outlet></router-outlet>
+
+

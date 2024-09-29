@@ -1,0 +1,12 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-header class="app-accent" layout="row">
+      <mat-card-title>
+        <span class="mat-headline">{{ msg }}</span>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-list flex>
+      <app-vendor-list [vendors]="vendors"></app-vendor-list>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
