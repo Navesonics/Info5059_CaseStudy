@@ -1,20 +1,23 @@
+//styles.scss
 @use '@angular/material' as mat;
 @import "./custom-theme.scss";
 .my-primary-text {
-color: mat.m2-get-color-from-palette($my-primary);
+  color: mat.m2-get-color-from-palette($my-primary);
 }
 .my-accent-text {
-color: mat.m2-get-color-from-palette($my-accent);
+  color: mat.m2-get-color-from-palette($my-accent);
 }
 .margin-right-2 {
-margin-right: 2vw !important;
+  margin-right: 2vw !important;
 }
 .margin-top-5 {
-margin-top: 5vh !important;
+  margin-top: 5vh !important;
 }
 mat-list-item:nth-child(odd){
-background-color:white;
+  background-color:white;
 }
 mat-list-item:nth-child(even) {
-background-color:#eeeeee;
+  background-color:#eeeeee;
 }
+
+

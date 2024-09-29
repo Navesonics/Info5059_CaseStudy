@@ -1,3 +1,4 @@
+//Vendor.ts
 export interface Vendor {
   /**
   * vendors - interface for an vendors entity

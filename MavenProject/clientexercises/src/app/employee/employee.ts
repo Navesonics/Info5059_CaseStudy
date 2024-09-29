@@ -1,3 +1,4 @@
+//employee.ts
 export interface Employee {
   /**
   * Employee - interface for an employee entity

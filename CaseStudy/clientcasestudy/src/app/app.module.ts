@@ -1,3 +1,4 @@
+//app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';

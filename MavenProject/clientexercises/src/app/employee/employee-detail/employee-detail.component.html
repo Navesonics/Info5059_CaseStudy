@@ -1,0 +1,41 @@
+<!--employee-detail.component.html-->
+<form [formGroup]="employeeForm" (ngSubmit)="updateSelectedEmployee()">
+  <div layout="row">
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input matInput type="text" maxlength="4" required formControlName="title" autofocus />
+    </mat-form-field>
+  </div>
+  <div layout="row">
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input matInput type="text" required formControlName="firstname" />
+    </mat-form-field>
+  </div>
+  <div layout="row">
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input matInput type="text" required formControlName="lastname" />
+    </mat-form-field>
+  </div>
+  <div layout="row">
+    <mat-form-field>
+      <mat-label>Phone #</mat-label>
+      <input matInput type="text" required formControlName="phoneno" />
+    </mat-form-field>
+  </div>
+  <div layout="row">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput type="email" required formControlName="email" />
+    </mat-form-field>
+  </div>
+  <div class="mat-pad-sm">
+    <span>
+      <button mat-raised-button type="submit">Save</button>
+    </span>
+    <span>
+      <button mat-raised-button type="button" (click)="cancelled.emit(selectedEmployee)">Cancel</button>
+    </span>
+  </div>
+</form>

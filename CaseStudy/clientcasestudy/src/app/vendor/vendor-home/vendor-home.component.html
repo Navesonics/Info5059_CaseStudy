@@ -1,12 +1,23 @@
-<mat-card>
-  <mat-card-content>
-    <mat-card-header class="app-accent" layout="row">
-      <mat-card-title>
-        <span class="mat-headline">{{ msg }}</span>
-      </mat-card-title>
-    </mat-card-header>
-    <mat-list flex>
-      <app-vendor-list [vendors]="vendors"></app-vendor-list>
+<!--vendor-home.component.html-->
+<mat-card *ngIf="hideEditForm">
+  <mat-card-content *ngIf="vendors$ | async as vend; else loading;" style="display: flex; flex-direction: column; height: 100%;">
+    <mat-list style="flex-grow: 1;">
+      <app-vendor-list [vendors]="vend" (selected)="select($event)"></app-vendor-list>
     </mat-list>
+    <!-- Flexbox ensures msg stays at the bottom-right without overlap -->
+    <span style="margin-top: auto; align-self: flex-end; color: blue; padding: 8px 16px; font-size: 18px; font-weight: bold; text-align: right;">
+      {{ msg }}
+    </span>
+  </mat-card-content>
+  <ng-template #loading class="my-primary-text">Loading Vendors from server...</ng-template>
+</mat-card>
+
+<mat-card *ngIf="!hideEditForm">
+  <mat-card-content style="display: flex; flex-direction: column; height: 100%;">
+    <app-vendor-detail [selectedVendor]="vendor" (cancelled)="cancel()" (saved)="update($event)">
+    </app-vendor-detail>
+    <span style="margin-top: auto; align-self: flex-end; color: blue; padding: 8px 16px; font-size: 16px; font-weight: bold; text-align: right;">
+      {{ msg }}
+    </span>
   </mat-card-content>
 </mat-card>

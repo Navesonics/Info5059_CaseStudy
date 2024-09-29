@@ -1,0 +1,66 @@
+<!--vendor-detail.component.html-->
+<form [formGroup]="vendorForm" (ngSubmit)="updateSelectedVendor()">
+  <div layout="row">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput type="name" formControlName="name" autofocus />
+    </mat-form-field>
+  </div>
+  <div layout="row">
+    <mat-form-field>
+      <mat-label>Address</mat-label>
+      <input matInput type="address1" formControlName="address1" />
+    </mat-form-field>
+  </div>
+  <div layout="row">
+    <mat-form-field>
+      <mat-label>City</mat-label>
+      <input matInput type="city" formControlName="city" />
+    </mat-form-field>
+  </div>
+  <div layout="row">
+    <mat-form-field>
+      <mat-label>Province</mat-label>
+      <mat-select matInput placeholder="Province" formControlName="province" flex>
+        <mat-option value="On">Ontario</mat-option>
+        <mat-option value="Qu">Quebec</mat-option>
+        <mat-option value="Ab">Alberta</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div layout="row">
+    <mat-form-field>
+      <mat-label>Postal Code</mat-label>
+      <input matInput type="postalcode" formControlName="postalcode" />
+    </mat-form-field>
+  </div>
+  <div layout="row">
+    <mat-form-field>
+      <mat-label>Phone #</mat-label>
+      <input matInput type="phone" formControlName="phone" />
+    </mat-form-field>
+  </div>
+  <div layout="row">
+    <mat-form-field>
+      <mat-label>Type</mat-label>
+      <mat-select matInput placeholder="Type" formControlName="type" flex>
+        <mat-option value="Trusted">Trusted</mat-option>
+        <mat-option value="Untrusted">Untrusted</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div layout="row">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" />
+    </mat-form-field>
+  </div>
+  <div class="mat-pad-sm">
+    <span>
+      <button mat-raised-button type="submit">Save</button>
+    </span>
+    <span>
+      <button mat-raised-button type="button" (click)="cancelled.emit(selectedVendor)">Cancel</button>
+    </span>
+  </div>
+</form>

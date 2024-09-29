@@ -1,3 +1,4 @@
+//vendor.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -5,13 +6,15 @@ import { BASE_URL } from '../constants';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
+import { Vendor } from './vendor';
+
 @Injectable({
   providedIn: 'root'
 })
 export class VendorService {
   resourceURL: string;
   constructor(public http: HttpClient) {
-    this.resourceURL = `${BASE_URL}/vendors`;
+    this.resourceURL = `${BASE_URL}/api/vendors`;
   } // constructor
 
   /**
@@ -20,11 +23,17 @@ export class VendorService {
   * repository returns all the data in an "embedded" property
   */
 
-  get(): Observable<any> {
+  get(): Observable<Vendor[]> {
     return this.http
-    .get(this.resourceURL)
+    .get<Vendor[]>(this.resourceURL)
     .pipe(retry(1), catchError(this.handleError));
   } // get
+
+  update(vendor: Vendor): Observable<Vendor> {
+  return this.http
+    .put<Vendor>(`${this.resourceURL}`, vendor)
+    .pipe(retry(1), catchError(this.handleError));
+  } // update
 
   // Error handling
   handleError(error: any) {
