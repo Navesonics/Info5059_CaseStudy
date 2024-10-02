@@ -21,6 +21,7 @@ export class EmployeeDetailComponent implements OnInit {
   @Input() employees: Employee[] | null = null;
   @Output() cancelled = new EventEmitter();
   @Output() saved = new EventEmitter();
+  @Output() deleted = new EventEmitter<Employee>();
 
   employeeForm: FormGroup;
   title: FormControl;

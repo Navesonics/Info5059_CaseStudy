@@ -21,29 +21,39 @@ export class EmployeeService {
   * we're temporarily using an any type (typically a bad idea) because the Spring Boot
   * repository returns all the data in an "embedded" property
   */
-  get(): Observable<Employee[]> {
-    return this.http
-      .get<Employee[]>(this.resourceURL)
-      //.put<Employee>(`${this.resourceURL}`, employee)
-      .pipe(retry(1), catchError(this.handleError));
-  } // get
+   get(): Observable<Employee[]> {
+     return this.http
+       .get<Employee[]>(this.resourceURL)
+       //.put<Employee>(`${this.resourceURL}`, employee)
+       .pipe(retry(1), catchError(this.handleError));
+   } // get
+   
+   update(employee: Employee): Observable<Employee> {
+     return this.http
+       .put<Employee>(`${this.resourceURL}`, employee)
+       .pipe(retry(1), catchError(this.handleError));
+   } // update
+   
+   add(employee: Employee): Observable<Employee> {
+     employee.id = 0;
+     return this.http
+       .post<Employee>(this.resourceURL, employee)
+       .pipe(retry(1), catchError(this.handleError));
+   } // add3
 
-  update(employee: Employee): Observable<Employee> {
-    return this.http
-      .put<Employee>(`${this.resourceURL}`, employee)
-      .pipe(retry(1), catchError(this.handleError));
-  } // update
+   delete(id: number): Observable<number> {
+     return this.http
+       .delete<number>(`${this.resourceURL}/${id}`)
+       .pipe(retry(1), catchError(this.handleError));
+   } // delete
 
-  // Error handling
-  handleError(error: any) {
-    let errorMessage = '';
-    error.error instanceof ErrorEvent
-    ? // Get client-side error
-    (errorMessage = error.error.message)
-    : // Get server-side error
-    (errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`);
-    console.log(errorMessage);
+   // Error handling
+   handleError(error: any) {
+     let errorMessage = error.message;
+     console.log(error);
+     console.log(errorMessage);
 
-    return throwError(() => errorMessage);
-  }
+     return throwError(() => errorMessage);
+   }
+
 } // EmployeeService

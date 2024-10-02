@@ -26,6 +26,7 @@ export class VendorDetailComponent {
   @Input() vendors: Vendor[] | null = null;
   @Output() cancelled = new EventEmitter();
   @Output() saved = new EventEmitter();
+  @Output() deleted = new EventEmitter<Vendor>();
 
   vendorForm: FormGroup;
   name: FormControl;

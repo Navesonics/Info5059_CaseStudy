@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Vendor } from '../vendor';
 import { VendorService } from '../vendor.service';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,7 +13,6 @@ import { Observable } from 'rxjs';
 
 
 export class VendorHomeComponent implements OnInit {
-  //vendors: Array<Vendor>;
   msg: string;
   vendors$?: Observable<Vendor[]>;
   vendor: Vendor;
@@ -38,40 +37,75 @@ export class VendorHomeComponent implements OnInit {
   } // constructor
 
   ngOnInit(): void {
-    //this.msg = 'loading vendors from server...';
-    this.vendors$ = this.vendorService.get().pipe(
-    tap(() => {
-        if (!this.initialLoad) {
-          this.msg = 'Vendors loaded via async pipe';
-          this.initialLoad = true;
-        }
-      })
-    );
+    this.vendors$ = this.vendorService.get();
   } // ngOnInit
 
   select(vendor: Vendor): void {
     this.vendor = vendor;
     this.msg = `Vendor ${vendor.name} selected`;
-    this.hideEditForm = !this.hideEditForm;
+    this.toggleEditForm();
   } // select
 
-  /**
-  * cancelled - event handler for cancel button
-  */
   cancel(): void {
     this.msg = 'Operation cancelled';
-    this.hideEditForm = !this.hideEditForm;
+    this.toggleEditForm();
   } // cancel
-  /**
-  * update - send changed update to service
-  */
+
   update(vendor: Vendor): void {
+    console.log('Updating vendor:', vendor);
     this.vendorService.update(vendor).subscribe({
-      // Create observer object
       next: (vend: Vendor) => (this.msg = `Vendor ${vend.name} updated!`),
       error: (err: Error) => (this.msg = `Update failed! - ${err.message}`),
-      complete: () => (this.hideEditForm = !this.hideEditForm),
+      complete: () => this.toggleEditForm(),
     });
   } // update
+
+  save(vendor: Vendor): void {
+    console.log('Saving vendor:', vendor);
+    vendor.id ? this.update(vendor) : this.add(vendor);
+  }// save
+
+  add(vendor: Vendor): void {
+    console.log('Adding vendor:', vendor);
+    vendor.id = 0;
+    this.vendorService.add(vendor).subscribe({
+      next: (vend: Vendor) => (this.msg = `Vendor ${vend.id} added!`),
+      error: (err: Error) => (this.msg = `Vendor not added! - ${err.message}`),
+      complete: () => this.toggleEditForm(),
+    });
+  } // add
+
+  delete(vendor: Vendor): void {
+    console.log('Deleting vendor:', vendor);
+    this.vendorService.delete(vendor.id).subscribe({
+      next: (numOfVendorsDeleted: number) => {
+        this.msg = numOfVendorsDeleted === 1 ? `Vendor ${vendor.name} deleted!` : 'Employee not deleted';
+      },
+      error: (err: Error) => (this.msg = `Delete failed! - ${err.message}`),
+      complete: () => this.toggleEditForm(),
+    });
+  } // delete
+
+  toggleEditForm(): void {
+    this.hideEditForm = !this.hideEditForm;
+  }
+
+  newVendor(): void {
+    this.vendor = {
+      id: 0,
+      name: '',
+      address1: '',
+      city: '',
+      province: '',
+      postalcode: '',
+      phone: '',
+      type: '',
+      email: '',
+    };
+    this.toggleEditForm();
+    this.msg = 'New Vendor';
+  } // newVendor
+
+
 
 } // VendorHomeComponent

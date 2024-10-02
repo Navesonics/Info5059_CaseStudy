@@ -1,3 +1,4 @@
+//Vendor.java
 package com.info5059.casestudy.vendor;
 
 import lombok.Data;

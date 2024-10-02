@@ -1,3 +1,4 @@
+//VendorController.java
 package com.info5059.casestudy.vendor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,17 @@ public class VendorController {
     public ResponseEntity<Vendor> updateOne(@RequestBody Vendor vendor) {
         Vendor updatedvendor = vendorRepository.save(vendor);
         return new ResponseEntity<Vendor>(updatedvendor, HttpStatus.OK);
+    }
+
+    @PostMapping("/api/vendors")
+    public ResponseEntity<Vendor> addOne(@RequestBody Vendor vendor) {
+        Vendor newVendor = vendorRepository.save(vendor);
+        return new ResponseEntity<Vendor>(newVendor, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/api/vendors/{id}")
+    public ResponseEntity<Integer> deleteOne(@PathVariable long id) {
+        return new ResponseEntity<Integer>(vendorRepository.deleteOne(id), HttpStatus.OK);
     }
 
 }
