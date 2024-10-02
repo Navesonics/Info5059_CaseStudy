@@ -5,16 +5,16 @@ import { HttpClient } from '@angular/common/http';
 import { BASE_URL } from '../constants';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { GenericHttpService } from '@app/generic-http.service';
 
-import { Vendor } from './vendor';
+import { Vendor } from '@app/vendor/vendor';
 
 @Injectable({
   providedIn: 'root'
 })
-export class VendorService {
-  resourceURL: string;
-  constructor(public http: HttpClient) {
-    this.resourceURL = `${BASE_URL}/api/vendors`;
+export class VendorService extends GenericHttpService<Vendor> {
+  constructor(httpClient: HttpClient) {
+    super(httpClient, `vendors`);
   } // constructor
 
   /**
@@ -23,36 +23,49 @@ export class VendorService {
   * repository returns all the data in an "embedded" property
   */
 
+  // Fetch all employees
   get(): Observable<Vendor[]> {
-    return this.http
-    .get<Vendor[]>(this.resourceURL)
-    .pipe(retry(1), catchError(this.handleError));
-  } // get
+    return super.getAll().pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
 
-  update(vendor: Vendor): Observable<Vendor> {
-  return this.http
-    .put<Vendor>(`${this.resourceURL}`, vendor)
-    .pipe(retry(1), catchError(this.handleError));
-  } // update
+  //Fetch an employee by ID (if needed)
+  override getById(id: number): Observable<Vendor> {
+    return super.getById(id).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
 
+  // Update an existing employee
+  override  update(vendor: Vendor): Observable<Vendor> {
+    return super.update(vendor).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  // Add a new employee
   add(vendor: Vendor): Observable<Vendor> {
     vendor.id = 0;
-    return this.http
-      .post<Vendor>(this.resourceURL, vendor)
-      .pipe(retry(1), catchError(this.handleError));
-  } // add
+    return super.create(vendor).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
 
-  delete(id: number): Observable<number> {
-    return this.http
-      .delete<number>(`${this.resourceURL}/${id}`)
-      .pipe(retry(1), catchError(this.handleError));
-  } // delete
+  // Delete an employee by ID
+  override delete(id: number): Observable<any> {
+    return super.delete(id).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
 
-  // Error handling
-  handleError(error: any) {
-    let errorMessage = error.message;
-    console.log(error);
-    console.log(errorMessage);
-    return throwError(() => errorMessage);
+  // Error handling (inherits from GenericHttpService)
+  override handleError(error: any) {
+    return super.handleError(error); // Use the error handling from GenericHttpService
   }
 } // VendorService

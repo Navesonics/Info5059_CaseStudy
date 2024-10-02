@@ -2,37 +2,63 @@
 <form [formGroup]="employeeForm" (ngSubmit)="updateSelectedEmployee()">
   <div layout="row">
     <mat-form-field>
-      <mat-label>Title</mat-label>
-      <input matInput type="text" maxlength="4" required formControlName="title" autofocus />
+    <mat-label>Title</mat-label>
+    <mat-error *ngIf="title.errors && (title.dirty || title.touched)">
+      Title is required
+    </mat-error>
+    <input
+      matInput
+      type="text"
+      maxlength="4"
+      required
+      formControlName="title"
+      autofocus
+    />
     </mat-form-field>
   </div>
   <div layout="row">
     <mat-form-field>
       <mat-label>First Name</mat-label>
-      <input matInput type="text" required formControlName="firstname" />
+      <mat-error *ngIf="firstname.errors && (firstname.dirty || firstname.touched)">
+        First Name is required
+      </mat-error>
+      <input matInput type="firstname" required formControlName="firstname" />
     </mat-form-field>
   </div>
   <div layout="row">
     <mat-form-field>
       <mat-label>Last Name</mat-label>
-      <input matInput type="text" required formControlName="lastname" />
+      <mat-error *ngIf="lastname.errors && (lastname.dirty || lastname.touched)">
+        Last Name is required
+      </mat-error>
+      <input matInput type="lastname" required formControlName="lastname" />
     </mat-form-field>
   </div>
   <div layout="row">
     <mat-form-field>
       <mat-label>Phone #</mat-label>
-      <input matInput type="text" required formControlName="phoneno" />
+      <mat-error *ngIf="phoneno.errors && (phoneno.dirty || phoneno.touched)">
+        <span *ngIf="phoneno.hasError('required')">Phone # is required.</span>
+        <span *ngIf="!phoneno.hasError('required') && phoneno.hasError('invalidPhone')">needs format - (###)###-####</span>
+      </mat-error>
+      <input matInput type="phoneno" required formControlName="phoneno" />
     </mat-form-field>
   </div>
   <div layout="row">
     <mat-form-field>
       <mat-label>Email</mat-label>
+      <mat-error *ngIf="email.errors && (email.dirty || email.touched)">
+      <span *ngIf="email.hasError('required')">Email is required.</span>
+      <span *ngIf="!email.hasError('required') && email.hasError('invalidEmail')">
+        Needs format - {{'xxx@xxx.xxx'}}
+      </span>
+      </mat-error>
       <input matInput type="email" required formControlName="email" />
     </mat-form-field>
   </div>
   <div class="mat-pad-sm">
     <span>
-      <button mat-raised-button type="button" (click)="updateSelectedEmployee()">
+      <button mat-raised-button type="button" (click)="updateSelectedEmployee()" [disabled]="!employeeForm.valid">
         Save
       </button>
     </span>

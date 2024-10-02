@@ -11,3 +11,26 @@ INSERT INTO Employee (Title,FirstName,LastName,PhoneNo,Email)
 VALUES ('Mr.','Sloppy','Joe','(555)555-5553','sj@abc.com');
 INSERT INTO Employee (Title,FirstName,LastName,PhoneNo,Email)
 VALUES ('Mr.','EvanWilson','Benitez','(555)555-5554','ewb@abc.com');
+-- add expense categories
+INSERT INTO Expense_Category (Id, Description) VALUES ('BSM','Business Meetings');
+INSERT INTO Expense_Category (Id, Description) VALUES ('ENT','Entertainment');
+INSERT INTO Expense_Category (Id, Description) VALUES ('PARK','Parking');
+INSERT INTO Expense_Category (Id, Description) VALUES ('LDG','Lodging');
+INSERT INTO Expense_Category (Id, Description) VALUES ('TRAV','Travel');
+INSERT INTO Expense_Category (Id, Description) VALUES ('MEAL','Meals');
+INSERT INTO Expense_Category (Id, Description) VALUES ('TUI','Tuition');
+INSERT INTO Expense_Category (Id, Description) VALUES ('MISC','Miscealleous');
+INSERT INTO Expense_Category (Id, Description) VALUES ('OTH','OTHER');
+-- add some expenses to seed the table
+INSERT INTO Expense (EmployeeId,CategoryId,Description,Receipt,DateIncurred,Amount)
+VALUES (1,'PARK','Parking for Convention',true,'2023-04-13',19.99);
+INSERT INTO Expense (EmployeeId,CategoryId,Description,Receipt,DateIncurred,Amount)
+VALUES (1,'LDG','Hotel for Convention',true,'2023-04-15',219.99);
+INSERT INTO Expense (EmployeeId,CategoryId,Description,Receipt,DateIncurred,Amount)
+VALUES (1,'MEAL','Food at Convention',true,'2023-04-13',39.99);
+INSERT INTO Expense (EmployeeId,CategoryId,Description,Receipt,DateIncurred,Amount)
+VALUES (2,'TUI','Tuition for Cobol course',true,'2023-05-19',29.99);
+INSERT INTO Expense (EmployeeId,CategoryId,Description,Receipt,DateIncurred,Amount)
+VALUES (2,'MISC','Bought widgets for the office',true,'2023-05-20',19.99);
+INSERT INTO Expense (EmployeeId,CategoryId,Description,Receipt,DateIncurred,Amount)
+VALUES (2,'OTH','Donation for Cancer Society',true,'2023-05-21',20.00);

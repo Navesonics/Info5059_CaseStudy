@@ -30,8 +30,19 @@ export class EmployeeHomeComponent implements OnInit {
   } // constructor
 
   ngOnInit(): void {
-    this.employees$ = this.employeeService.get();
+    this.msg = `Loading...`;
+    this.getAll();
   } // ngOnInit
+  /**
+  * getAll - retrieve everything
+  */
+  getAll(): void {
+    this.employees$ = this.employeeService.getAll();
+    this.employees$.subscribe({
+      error: (e: Error) => this.msg = `Couldn't get employees - ${e.message}`,
+      complete: () => this.msg = `Employees loaded!`,
+    });
+  } // getAll
 
   select(employee: Employee): void {
     this.employee = employee;

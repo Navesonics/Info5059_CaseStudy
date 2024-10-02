@@ -37,8 +37,17 @@ export class VendorHomeComponent implements OnInit {
   } // constructor
 
   ngOnInit(): void {
-    this.vendors$ = this.vendorService.get();
+    this.msg = `Loading...`;
+    this.getAll();
   } // ngOnInit
+
+  getAll(): void {
+    this.vendors$ = this.vendorService.getAll();
+    this.vendors$.subscribe({
+      error: (e: Error) => this.msg = `Couldn't get vendors - ${e.message}`,
+      complete: () => this.msg = `Vendors loaded!`,
+    });
+  } // getAll
 
   select(vendor: Vendor): void {
     this.vendor = vendor;
@@ -105,7 +114,4 @@ export class VendorHomeComponent implements OnInit {
     this.toggleEditForm();
     this.msg = 'New Vendor';
   } // newVendor
-
-
-
 } // VendorHomeComponent

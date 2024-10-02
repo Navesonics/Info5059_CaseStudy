@@ -21,7 +21,8 @@ describe('employee update test', () => {
     cy.contains('Test').click();
     cy.get("[type='email']").clear();
     cy.get("[type='email']").type('someemail@domain.com');
-    cy.get('form').submit();
+    //cy.get('form').submit();
+    cy.contains('button', 'Save').click();
     cy.contains('updated!');
   });
 

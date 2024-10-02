@@ -21,14 +21,29 @@ mat-list-item:nth-child(even) {
 }
 
 .padtop15 {
-padding-top: 15vh;
+  padding-top: 15vh;
 }
 .material-icons.addicon {
-font-size: 15vw;
-position: absolute;
-bottom: 5vh;
-right: 5vw;
-padding: 10vw;
+  font-size: 15vw;
+  position: absolute;
+  bottom: 5vh;
+  right: 5vw;
+  padding: 10vw;
 }
+
+.form-row {
+  margin-bottom: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
 
 
