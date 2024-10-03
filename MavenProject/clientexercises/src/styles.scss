@@ -34,3 +34,14 @@ padding-top: 15vh;
 mat-error {
   text-align: right;
 }
+
+.mat-mdc-row:nth-child(odd){
+  background-color:#eeeeee;
+  text-align: center;
+}
+
+.mat-mdc-row.ng-star-inserted:nth-child(even) {
+  background-color: white;
+  text-align: center;
+}
+
