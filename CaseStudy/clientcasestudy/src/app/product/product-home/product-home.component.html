@@ -1,0 +1,62 @@
+<mat-card>
+  <mat-card-content *ngIf="showDetails">
+    <app-product-detail
+      [product]="productInDetail"
+      [vendors]="vendors"
+      (cancelled)="cancel()"
+      (saved)="save($event)"
+      (deleted)="delete($event)"
+    >
+    </app-product-detail>
+  </mat-card-content>
+
+  <!-- Product Table -->
+  <mat-card-content *ngIf="!showDetails">
+    <table mat-table [dataSource]="dataSource" products-table class="mat-elevation-z8" matSort matSortActive="vendorid" matSortDirection="asc" matSortDisableClear>
+
+      <!-- Product No. Column -->
+      <ng-container matColumnDef="Product No.">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <div class="center-header">Product No.</div>
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="Name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <div class="center-header">Name</div>
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <!-- Vendor ID Column -->
+      <ng-container matColumnDef="Vendor ID">
+         <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <div class="center-header">Vendor ID</div>
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.vendorid }}</td>
+      </ng-container>
+
+      <!-- Table Header Row -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <!-- Table Data Row -->
+      <tr mat-row *matRowDef="let product; columns: displayedColumns" (click)="select(product)"></tr>
+    </table>
+  </mat-card-content>
+  <!-- Card Header -->
+  <mat-card-header layout="row" style="justify-content: flex-end;">
+    <mat-card-title style="font-size: large; font-weight: bold; color: blue;">
+      <span>{{ msg }}</span>
+    </mat-card-title>
+  </mat-card-header>
+</mat-card>
+
+<div class="padtop15" *ngIf="!showDetails">
+  <mat-icon (click)="startNewProduct()" matTooltip="Add New Product" class="addicon" color="primary">
+    control_point
+  </mat-icon>
+
+</div>
+
+
